@@ -121,11 +121,23 @@
       100%{ transform: translateX(120%); opacity:0; }
     }
 
-    .isoSvg{ height: 34px; width:auto; display:block; }
-    .wordSvg{ height: 16px; width:auto; display:block; transform: translateY(1px); }
-
+    /* SVG: force stable sizing (Safari fix) */
     .brand svg, .heroMarks svg{ color: rgba(255,255,255,.95); }
     .brand svg *, .heroMarks svg *{ fill: currentColor; }
+
+    .isoSvg{
+      height: 34px;
+      width: auto;
+      aspect-ratio: 300.02 / 283.47; /* Safari-safe */
+      display:block;
+    }
+    .wordSvg{
+      height: 16px;
+      width: auto;
+      aspect-ratio: 540.77 / 114.04; /* Safari-safe */
+      display:block;
+      transform: translateY(1px);
+    }
 
     .brand .isoSvg, .brand .wordSvg{ opacity: 0; transform: translateY(6px) scale(.98); }
     body.loaded .brand .isoSvg{ animation: popIn .6s ease .10s forwards; }
@@ -140,6 +152,7 @@
       gap: 28px;
       align-items: start;
     }
+
     .pillrow{
       display:flex; gap:10px; flex-wrap:wrap; align-items:center;
       margin-bottom: 16px;
@@ -167,8 +180,16 @@
       flex-direction: column;
       gap: 10px;
       position: relative;
+      max-width: 100%;
     }
-    .heroWord{ height: clamp(54px, 7vw, 92px); width:auto; display:block; }
+
+    /* HERO wordmark: explicit width fixes Safari */
+    .heroWord{
+      width: min(560px, 100%);
+      height: auto;
+      aspect-ratio: 540.77 / 114.04;
+      display:block;
+    }
 
     /* Typing tagline */
     .taglineWrap{
@@ -176,6 +197,7 @@
       height: clamp(16px, 2.2vw, 22px);
       display:flex;
       align-items:center;
+      max-width: 100%;
     }
     .taglineType{
       font-size: clamp(16px, 2.2vw, 22px);
@@ -184,6 +206,7 @@
       color: rgba(255,255,255,.92);
       white-space: nowrap;
       user-select: none;
+      max-width: 100%;
     }
     .caret{
       width: 10px;
@@ -192,6 +215,7 @@
       border-left: 2px solid rgba(255,255,255,.75);
       transform: translateY(1px);
       animation: caretBlink 900ms steps(1) infinite;
+      flex: 0 0 auto;
     }
     @keyframes caretBlink{ 50%{ opacity: 0; } }
 
@@ -204,6 +228,8 @@
       pointer-events:none;
       height: clamp(16px, 2.2vw, 22px);
       width: auto;
+      aspect-ratio: 599.83 / 44.16;
+      display:block;
     }
 
     .sub{
@@ -347,10 +373,12 @@
     @media (prefers-reduced-motion: reduce){
       *{ animation: none !important; transition: none !important; scroll-behavior: auto !important; }
       .reveal{ opacity:1; transform:none; }
-
-      /* typing off */
       #taglineType, .caret{ display:none !important; }
-      .fallbackTag{ opacity: .92 !important; position: static; transform:none; }
+      .fallbackTag{
+        opacity: .92 !important;
+        position: static;
+        transform:none;
+      }
     }
 
     @media (max-width: 980px){
@@ -411,8 +439,12 @@
     <header class="nav">
       <a class="brand" href="#top" aria-label="Inicio">
         <span class="mark" aria-hidden="true">
-          <svg class="isoSvg" viewBox="0 0 300.02 283.47"><use href="#vekto-logo"></use></svg>
-          <svg class="wordSvg" viewBox="0 0 540.77 114.04"><use href="#vekto-word"></use></svg>
+          <svg class="isoSvg" viewBox="0 0 300.02 283.47" preserveAspectRatio="xMinYMid meet">
+            <use href="#vekto-logo"></use>
+          </svg>
+          <svg class="wordSvg" viewBox="0 0 540.77 114.04" preserveAspectRatio="xMinYMid meet">
+            <use href="#vekto-word"></use>
+          </svg>
         </span>
       </a>
 
@@ -439,14 +471,16 @@
         </div>
 
         <div class="heroMarks">
-          <svg class="heroWord" viewBox="0 0 540.77 114.04"><use href="#vekto-word"></use></svg>
+          <svg class="heroWord" viewBox="0 0 540.77 114.04" preserveAspectRatio="xMinYMid meet" aria-label="VEKTO">
+            <use href="#vekto-word"></use>
+          </svg>
 
           <div class="taglineWrap" aria-label="tagline">
             <span id="taglineType" class="taglineType" aria-hidden="true"></span>
             <span class="caret" aria-hidden="true"></span>
 
             <!-- fallback -->
-            <svg class="fallbackTag" viewBox="0 0 599.83 44.16" aria-label="Build the future">
+            <svg class="fallbackTag" viewBox="0 0 599.83 44.16" preserveAspectRatio="xMinYMid meet" aria-label="Build the future">
               <use href="#vekto-tagline"></use>
             </svg>
           </div>
@@ -606,8 +640,8 @@
           <p>Si querés construir con estándar — sin ruido — escribime.</p>
 
           <div class="heroActions" style="margin-top: 14px;">
-            <a class="btn primary" href="mailto:hola@vekto.dev">hola@vekto.dev</a>
-            <a class="btn" href="https://wa.me/549" target="_blank" rel="noreferrer">WhatsApp</a>
+            <a class="btn primary" href="mailto:Lautaro@vekto.dev">Lautaro@vekto.dev</a>
+            <a class="btn" href="https://wa.me/5493417221341" target="_blank" rel="noreferrer">WhatsApp</a>
             <a class="btn" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
           </div>
         </div>
@@ -624,7 +658,6 @@
     window.addEventListener("DOMContentLoaded", () => {
       document.body.classList.add("loaded");
       document.getElementById("year").textContent = new Date().getFullYear();
-
       startTaglineTyping();
     });
 
@@ -653,7 +686,7 @@
       if (!el) return;
 
       if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches){
-        return; // fallback svg shown via CSS
+        return; // fallback SVG is shown by CSS
       }
 
       const phrases = [
