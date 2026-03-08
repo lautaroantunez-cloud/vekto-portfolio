@@ -107,12 +107,12 @@
     }
 
     .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:18px;
-      padding: 8px 0 14px;
-    }
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding: 8px 0 6px;
+}
 
     .brand{
       display:flex;
@@ -139,20 +139,27 @@
       min-width:0;
     }
 
-    .brandText{
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing: -.05em;
-      line-height: 1;
-      color: rgba(255,255,255,.97);
-    }
+    .brandTextWrap{
+  display:flex;
+  flex-direction:column;
+  gap:1px;
+  min-width:0;
+}
 
-    .brandSub{
-      font-size: 11px;
-      color: var(--muted-2);
-      letter-spacing: -.01em;
-      line-height: 1;
-    }
+.brandText{
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -.05em;
+  line-height: .95;
+  color: rgba(255,255,255,.97);
+}
+
+.brandSub{
+  font-size: 10px;
+  color: var(--muted-2);
+  letter-spacing: -.01em;
+  line-height: .95;
+}
 
     .navLinks{
       display:flex;
@@ -181,12 +188,12 @@
     }
 
     .hero{
-      padding: 74px 0 36px;
-      display:grid;
-      grid-template-columns: minmax(0, 1.06fr) minmax(360px, .94fr);
-      gap: 38px;
-      align-items:start;
-    }
+  padding: 28px 0 36px;
+  display:grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(360px, .94fr);
+  gap: 38px;
+  align-items:start;
+}
 
     .eyebrowRow{
       display:flex;
@@ -605,22 +612,22 @@
     }
 
     @media (max-width: 720px){
-      .nav{
-        flex-wrap:wrap;
-      }
+      ..nav{
+  flex-wrap:wrap;
+  padding-bottom: 4px;
+}
 
-      .navLinks{
-        display:none;
-      }
+.navLinks{
+  display:none;
+}
 
-      .navCta{
-        margin-left:auto;
-      }
+.navCta{
+  margin-left:auto;
+}
 
-      .hero{
-        padding-top: 52px;
-      }
-
+.hero{
+  padding-top: 18px;
+}
       .heroTitle{
         font-size: clamp(52px, 20vw, 94px);
       }
